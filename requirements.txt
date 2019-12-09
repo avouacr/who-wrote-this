@@ -1,0 +1,3 @@
+numpy
+pandas
+Gutenberg==0.8.0
