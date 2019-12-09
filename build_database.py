@@ -37,7 +37,7 @@ def sample_paragraphs(book_id, author, n_parag, min_length):
 
 
 def build_db(books_ref, n_parag, min_length):
-    """Build complete list of (paragraph, author) from the input book references."""
+    """Build dataframe with couples (paragraph, author) from the input book references."""
     all_parags = []
     for book_id, author in books_ref:
         parags = sample_paragraphs(book_id=book_id, author=author,
@@ -49,7 +49,7 @@ def build_db(books_ref, n_parag, min_length):
 
 
 def export_db(df, output_dir='data', sep='|'):
-    """Export final database as .csv file."""
+    """Export database as .csv file."""
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
