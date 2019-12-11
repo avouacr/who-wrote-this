@@ -4,16 +4,19 @@ Build database for the Data Camp challenge using books from the Gutenberg projec
 
 import os
 from numpy.random import randint, seed
-import pandas as pd
 
 from gutenberg.acquire import load_etext
 from gutenberg.cleanup import strip_headers
 
 
-def sample_paragraphs(book_id, author, n_parag, min_length):
+def sample_paragraphs(book_id, n_parag, min_length):
     """Get book as text file and randomly sample a fixed number of paragraphs."""
-    # Remove leading/trailing spaces
-    book = strip_headers(load_etext(book_id)).strip()
+    # Get book as string and emove metadata
+    book = load_etext(book_id)
+    # Remove metadata
+    book = strip_headers(book).strip()
+    # Remove the character we'll choose as separator
+    book = book.replace('|', ' ')
     # Split paragraphs
     parag = book.split('\n\n')
     # Remove single line breaks
@@ -27,48 +30,47 @@ def sample_paragraphs(book_id, author, n_parag, min_length):
     seed(42)
     sample_ind = randint(0, len(parag), n_parag)
 
-    if n_parag > len(parag):
-        raise ValueError('The number of paragraphs to sample is higher than the '
-                         'total number of paragraphs.')
+    if n_parag is not None:
+        if n_parag > len(parag):
+            raise ValueError('The number of paragraphs to sample is higher than the '
+                             'total number of paragraphs.')
+        else:
+            parag_sampled = [parag[i] for i in sample_ind]
+
     else:
-        parag_sampled = [parag[i] for i in sample_ind]
+        # If n_parag is None, all paragraphs are sampled
+        parag_sampled = parag
 
-    return zip(parag_sampled, [author]*len(parag_sampled))
-
-
-def build_db(books_ref, n_parag, min_length):
-    """Build dataframe with couples (paragraph, author) from the input book references."""
-    all_parags = []
-    for book_id, author in books_ref:
-        parags = sample_paragraphs(book_id=book_id, author=author,
-                                   n_parag=n_parag, min_length=min_length)
-        for p in parags:
-            all_parags.append(p)
-
-    return pd.DataFrame(all_parags, columns=['paragraph', 'author'])
+    return parag_sampled
 
 
-def export_db(df, output_dir='data', sep='|'):
-    """Export database as .csv file."""
+def build_db(books_ref, n_parag, min_length, file_name, output_dir='data', sep='|'):
+    """Build database from book references and export as .csv."""
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
-    filename = 'complete_db.csv'
-    output_file = os.path.join(output_dir, filename)
-    df.to_csv(output_file, sep=sep, index=False)
-    print('Complete database saved as : ' + output_file)
+    output_file = os.path.join(output_dir, file_name)
+    with open(output_file, 'w') as f:
+        f.write('paragraph' + sep + 'author' + '\n')
+
+    for author, book_id in books_ref:
+        parags = sample_paragraphs(book_id=book_id, n_parag=n_parag,
+                                   min_length=min_length)
+        with open(output_file, 'a') as f:
+            for p in parags:
+                f.write(p + sep + author + '\n')
 
 
 if __name__ == '__main__':
 
-    # List of references to sample. Format : (book_id, author)
+    # Get list of references to sample. Format : (book_id, author)
     # book_id is the ID of the book in the Gutenberg project database
-    books = [(5711, 'Zola'), (10775, 'Maupassant'), (55860, 'Balzac')]
+    with open('data/book_references.txt') as f:
+        book_refs = f.read().splitlines()
+    book_refs = [(x.split(',')[0], int(x.split(',')[1])) for x in book_refs]
 
-    # Build database
-    n_parag=200
-    df_complete = build_db(books, n_parag=n_parag, min_length=100)
-    assert(df_complete.shape[0] == len(books)*n_parag)
+    # Build complete database
+    build_db(book_refs, n_parag=None, min_length=100, file_name='complete_db.csv')
 
-    # Export database
-    export_db(df_complete, output_dir='data', sep='|')
+    # Build small database
+    build_db(book_refs, n_parag=200, min_length=100, file_name='small_db.csv')
