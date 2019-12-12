@@ -4,3 +4,5 @@ Gutenberg >= 0.8.0
 nltk
 plotly == 4.4.1
 plotly_express == 0.4.0
+matplotlib
+seaborn
