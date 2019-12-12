@@ -1,0 +1,12 @@
+name: Who wrote this
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn>=0.20
+  - jupyter
+  - nltk
+  - pip:
+      - https://api.github.com/repos/paris-saclay-cds/ramp-workflow/zipball/master
