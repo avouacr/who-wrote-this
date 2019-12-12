@@ -1,11 +1,14 @@
 import os
-import numpy as np
+
 import pandas as pd
+
 import rampwf as rw
 from rampwf.workflows import FeatureExtractorRegressor
 from rampwf.score_types.base import BaseScoreType
+
 from sklearn.metrics import f1_score
 from sklearn.model_selection import ShuffleSplit
+from sklearn.preprocessing import OrdinalEncoder
 
 problem_title = "Who wrote this? Predicting the author of a paragraph"
 _target_column_name = "author"
@@ -55,7 +58,7 @@ def get_cv(X, y):
 # untested
 def _read_data(path, f_name):
     data = pd.read_csv(os.path.join(path, "data", f_name), low_memory=False)
-    y_array = data[_target_column_name].values
+    y_array = OrdinalEncoder().fit_transform(data[_target_column_name].values)
     X_df = data.drop(columns=[_target_column_name])
     return X_df, y_array
 
