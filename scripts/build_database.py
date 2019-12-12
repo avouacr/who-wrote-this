@@ -16,11 +16,11 @@ def sample_paragraphs(book_id, n_parag, min_length):
     # Remove metadata
     book = strip_headers(book).strip()
     # Remove the character we'll choose as separator
-    book = book.replace('|', ' ')
+    book = book.replace("|", " ")
     # Split paragraphs
-    parag = book.split('\n\n')
+    parag = book.split("\n\n")
     # Remove single line breaks
-    parag = [x.replace('\n', ' ') for x in parag]
+    parag = [x.replace("\n", " ") for x in parag]
     # Remove paragraphs below a certain length
     parag = [p for p in parag if len(p) > min_length]
     # Exclude first/last 10 parag from sampling as they may contain remaining metadata
@@ -32,8 +32,10 @@ def sample_paragraphs(book_id, n_parag, min_length):
 
     if n_parag is not None:
         if n_parag > len(parag):
-            raise ValueError('The number of paragraphs to sample is higher than the '
-                             'total number of paragraphs.')
+            raise ValueError(
+                "The number of paragraphs to sample is higher than the "
+                "total number of paragraphs."
+            )
         else:
             parag_sampled = [parag[i] for i in sample_ind]
 
@@ -44,33 +46,40 @@ def sample_paragraphs(book_id, n_parag, min_length):
     return parag_sampled
 
 
-def build_db(books_ref, n_parag, min_length, file_name, output_dir='data', sep='|'):
+def build_db(books_ref, n_parag, min_length, file_name, output_dir="data", sep="|"):
     """Build database from book references and export as .csv."""
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
     output_file = os.path.join(output_dir, file_name)
-    with open(output_file, 'w') as f:
-        f.write('paragraph' + sep + 'author' + '\n')
+    with open(output_file, "w") as f:
+        f.write("paragraph" + sep + "author" + "\n")
 
     for author, book_id in books_ref:
-        parags = sample_paragraphs(book_id=book_id, n_parag=n_parag,
-                                   min_length=min_length)
-        with open(output_file, 'a') as f:
+        parags = sample_paragraphs(
+            book_id=book_id, n_parag=n_parag, min_length=min_length
+        )
+        with open(output_file, "a") as f:
             for p in parags:
-                f.write(p + sep + author + '\n')
+                f.write(p + sep + author + "\n")
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     # Get list of references to sample. Format : (book_id, author)
     # book_id is the ID of the book in the Gutenberg project database
-    with open('data/book_references.txt') as f:
+    with open("data/meta/book_references.txt") as f:
         book_refs = f.read().splitlines()
-    book_refs = [(x.split(',')[0], int(x.split(',')[1])) for x in book_refs]
+    book_refs = [(x.split(",")[0], int(x.split(",")[1])) for x in book_refs]
 
     # Build complete database
-    build_db(book_refs, n_parag=None, min_length=100, file_name='complete_db.csv')
+    build_db(
+        book_refs, n_parag=None, min_length=100, file_name="who_wrote_this_corpus.csv"
+    )
 
     # Build small database
-    build_db(book_refs, n_parag=200, min_length=100, file_name='small_db.csv')
+    build_db(
+        book_refs,
+        n_parag=200,
+        min_length=100,
+        file_name="who_wrote_this_corpus_small.csv",
+    )
