@@ -7,7 +7,7 @@ class Regressor(BaseEstimator):
         self.regressor = None
 
     def fit(self, X, y):
-        self.regressor = LogisticRegression(multi_class=True)
+        self.regressor = LogisticRegression(multi_class='auto')
         self.regressor.fit(X, y)
 
         return self

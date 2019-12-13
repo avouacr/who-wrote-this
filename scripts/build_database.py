@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     # Build complete database
     build_db(
-        book_refs, n_parag=None, min_length=100, file_name="who_wrote_this_corpus.csv"
+        book_refs, n_parag=None, min_length=100, file_name="who_wrote_this_corpus_complete.csv"
     )
 
     # Build small database

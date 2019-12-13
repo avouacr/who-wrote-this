@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+import numpy as np
 
 import rampwf as rw
 from rampwf.workflows import FeatureExtractorRegressor
@@ -56,17 +57,18 @@ def get_cv(X, y):
 
 
 # untested
-def _read_data(path, f_name):
-    data = pd.read_csv(os.path.join(path, "data", f_name), low_memory=False)
-    y_array = OrdinalEncoder().fit_transform(data[_target_column_name].values)
+def _read_data(path, f_name, sep):
+    data = pd.read_csv(os.path.join(path, "data", f_name), sep=sep, low_memory=False)
+    y_array = OrdinalEncoder().fit_transform(data[_target_column_name].values[:,np.newaxis])
     X_df = data.drop(columns=[_target_column_name])
     return X_df, y_array
 
 
 # untested
-def get_train_data(path="."):
-    f_name = "who_wrote_this_corpus_complete.csv"
-    X_df, y_array = map(lambda x: x[: int(len(x) / 0.8)], _read_data(path, f_name))
+def get_train_data(sep, path="."):
+    f_name = "who_wrote_this_corpus_small.csv"
+    X_df, y_array = map(lambda x: x[: int(len(x) / 0.8)], _read_data(path, f_name,
+                                                                     sep=sep))
     return X_df, y_array
 
 
