@@ -5,6 +5,8 @@ Simple pipeline to test the naive submission.
 import numpy as np
 import imp
 
+from sklearn.pipeline import Pipeline
+
 import problem
 
 
@@ -34,10 +36,12 @@ feature_extractor = extractor_module.FeatureExtractor()
 regressor_module = imp.load_source('', 'submissions/' + submission_name + '/regressor.py')
 regressor = regressor_module.Regressor()
 
-X_train_prepro = feature_extractor.fit_transform(X_train, y_train)
-X_test_prepro = feature_extractor.transform(X_test)
+pipeline = Pipeline([
+    ('vectorizer', feature_extractor),
+    ('clf', regressor),
+])
 
-regressor.fit(X_train_prepro, y_train)
-y_pred = regressor.predict(X_train_prepro)
+pipeline.fit(X_train, y_train)
+y_pred = pipeline.predict(X_test)
 
 scorer(y_true=y_test, y_pred=y_pred)

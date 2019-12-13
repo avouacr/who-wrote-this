@@ -71,9 +71,10 @@ if __name__ == "__main__":
         book_refs = f.read().splitlines()
     book_refs = [(x.split(",")[0], int(x.split(",")[1])) for x in book_refs]
 
-    # Build complete database
+    # Build complete database and complete vocab
     build_db(
-        book_refs, n_parag=None, min_length=100, file_name="who_wrote_this_corpus_complete.csv"
+        book_refs, n_parag=None, min_length=100,
+        file_name="who_wrote_this_corpus_complete.csv"
     )
 
     # Build small database

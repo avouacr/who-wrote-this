@@ -30,9 +30,8 @@ workflow = WhoWroteThis()
 
 
 # define the score (basic multiclass F1-score)
-# untested
 class F1Score(BaseScoreType):
-    is_lower_the_better = True
+    is_lower_the_better = False
     minimum = 0.0
     maximum = float("inf")
 
@@ -42,7 +41,7 @@ class F1Score(BaseScoreType):
     def __call__(self, y_true, y_pred):
         if isinstance(y_true, pd.Series):
             y_true = y_true.values
-        return f1_score(y_true, y_pred)
+        return f1_score(y_true, y_pred, average='micro')
 
 
 score_types = [
@@ -57,16 +56,16 @@ def get_cv(X, y):
 
 
 # untested
-def _read_data(path, f_name, sep):
+def _read_data(path, f_name, sep='|'):
     data = pd.read_csv(os.path.join(path, "data", f_name), sep=sep, low_memory=False)
     y_array = OrdinalEncoder().fit_transform(data[_target_column_name].values[:,np.newaxis])
     X_df = data.drop(columns=[_target_column_name])
-    return X_df, y_array
+    return X_df, y_array.flatten()
 
 
 # untested
-def get_train_data(sep, path="."):
-    f_name = "who_wrote_this_corpus_small.csv"
+def get_train_data(sep='|', path="."):
+    f_name = "who_wrote_this_corpus_complete.csv"
     X_df, y_array = map(lambda x: x[: int(len(x) / 0.8)], _read_data(path, f_name,
                                                                      sep=sep))
     return X_df, y_array
@@ -74,6 +73,6 @@ def get_train_data(sep, path="."):
 
 # untested
 def get_test_data(path="."):
-    f_name = "company_revenue_TEST.csv.zip"
+    f_name = "who_wrote_this_corpus_small.csv"
     X_df, y_array = map(lambda x: x[int(len(x) / 0.8) :], _read_data(path, f_name))
     return X_df, y_array

@@ -1,3 +1,4 @@
+
 from sklearn.base import BaseEstimator
 from sklearn.linear_model import LogisticRegression
 
@@ -7,7 +8,7 @@ class Regressor(BaseEstimator):
         self.regressor = None
 
     def fit(self, X, y):
-        self.regressor = LogisticRegression(multi_class='auto')
+        self.regressor = LogisticRegression(solver='lbfgs', multi_class='multinomial')
         self.regressor.fit(X, y)
 
         return self
