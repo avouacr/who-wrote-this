@@ -5,7 +5,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 class FeatureExtractor(BaseEstimator, TransformerMixin):
     def __init__(self):
-        self.vocabulary = None
         self.vectorizer = TfidfVectorizer(strip_accents='ascii',
                                           max_df=0.7)
 
