@@ -1,0 +1,12 @@
+Balzac, 54723
+Daudet, 5105
+Dumas, 17991
+Dumas, 17992
+Hugo, 5423
+Hugo, 12137
+Flaubert, 52893
+Maupassant, 11175
+Stendhal, 60033
+Verne, 38674
+Vigny, 18211
+Zola, 17831
