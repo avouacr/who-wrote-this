@@ -67,20 +67,26 @@ def build_db(books_ref, n_parag, min_length, file_name, output_dir="data", sep="
 if __name__ == "__main__":
     # Get list of references to sample. Format : (book_id, author)
     # book_id is the ID of the book in the Gutenberg project database
-    with open("data/meta/book_references.txt") as f:
-        book_refs = f.read().splitlines()
-    book_refs = [(x.split(",")[0], int(x.split(",")[1])) for x in book_refs]
+    with open("data/meta/book_references_train.txt") as f:
+        book_refs_train = f.read().splitlines()
+    book_refs_train = [(x.split(",")[0], int(x.split(",")[1])) for x in book_refs_train]
 
-    # Build complete database and complete vocab
+    with open("data/meta/book_references_test.txt") as f:
+        book_refs_test = f.read().splitlines()
+    book_refs_test = [(x.split(",")[0], int(x.split(",")[1])) for x in book_refs_test]
+
+    # Build train database
     build_db(
-        book_refs, n_parag=None, min_length=100,
-        file_name="who_wrote_this_corpus_complete.csv"
+        book_refs_train,
+        n_parag=None,
+        min_length=100,
+        file_name="who_wrote_this_corpus_train.csv"
     )
 
-    # Build small database
+    # Build test database
     build_db(
-        book_refs,
-        n_parag=200,
+        book_refs_test,
+        n_parag=None,
         min_length=100,
-        file_name="who_wrote_this_corpus_small.csv",
+        file_name="who_wrote_this_corpus_test.csv"
     )
