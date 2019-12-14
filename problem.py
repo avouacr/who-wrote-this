@@ -62,12 +62,12 @@ def _read_data(path, f_name, sep='|'):
 
 
 def get_train_data(sep='|', path="."):
-    f_name = "who_wrote_this_corpus_complete.csv"
+    f_name = "who_wrote_this_corpus_train.csv"
     X_df, y_array = _read_data(path, f_name, sep=sep)
     return X_df, y_array
 
 
 def get_test_data(sep='|', path="."):
-    f_name = "who_wrote_this_corpus_small.csv"
+    f_name = "who_wrote_this_corpus_test.csv"
     X_df, y_array = _read_data(path, f_name, sep=sep)
     return X_df, y_array
