@@ -18,7 +18,3 @@ class Regressor(BaseEstimator):
         y_pred_ohe = np.zeros((y_pred.size, y_pred.max()+1))
         y_pred_ohe[np.arange(y_pred.size), y_pred] = 1
         return y_pred_ohe
-
-
-# a = np.array([[1,2,3], [4,5,6]])
-# a.argmax(axis=1)
