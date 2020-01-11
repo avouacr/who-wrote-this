@@ -8,7 +8,7 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.preprocessing import OrdinalEncoder
 
 import rampwf as rw
-from rampwf.workflows import FeatureExtractorRegressor
+from rampwf.workflows import FeatureExtractorClassifier
 from rampwf.score_types.classifier_base import ClassifierBaseScoreType
 
 problem_title = "Who wrote this? Predicting the author of a paragraph"
@@ -19,9 +19,9 @@ Predictions = rw.prediction_types.make_multiclass(
 
 
 # An object implementing the workflow
-class WhoWroteThis(FeatureExtractorRegressor):
+class WhoWroteThis(FeatureExtractorClassifier):
     def __init__(
-        self, workflow_element_names=["feature_extractor", "regressor",],
+        self, workflow_element_names=["feature_extractor", "classifier",],
     ):
         super().__init__()
         self.element_names = workflow_element_names

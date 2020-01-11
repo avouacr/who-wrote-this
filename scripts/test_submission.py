@@ -33,12 +33,12 @@ submission_name = 'starting_kit'
 extractor_module = imp.load_source('', 'submissions/' + submission_name + '/feature_extractor.py')
 feature_extractor = extractor_module.FeatureExtractor()
 
-regressor_module = imp.load_source('', 'submissions/' + submission_name + '/regressor.py')
-regressor = regressor_module.Regressor()
+classifier_module = imp.load_source('', 'submissions/' + submission_name + '/classifier.py')
+classifier = classifier_module.Classifier()
 
 pipeline = Pipeline([
     ('vectorizer', feature_extractor),
-    ('clf', regressor),
+    ('clf', classifier),
 ])
 
 pipeline.fit(X_train, y_train)
