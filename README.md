@@ -2,7 +2,16 @@
 
 *Authors : Romain Avouac, Jaime Costa Centena, Adrien Danel, Guillaume Desforges, José-Louis Imbert, Slimane Thabet*
 
-The goal of this challenge is to classify 19th century French writers based on their small portions of their work. This has exciting applications, from identifying unknown texts to linking writers with one another!
+Authorship identification is the task of recognizing who the author of a document is.
+It is part of the Natural Language Processing (NLP) kind of tasks.
+
+Being able to identify the author of a document presents several applications, such as detecting plagiarism or finding the author of an anonymous document.
+Archives all around the world are full of documents for which knowing the author would be invaluable knowledge for historical studies.
+Furthermore, [the multiple plagiarism scandals](https://lithub.com/12-literary-plagiarism-scandals-ranked/) in literature could be solved with an algorithm.
+For instance the authorship of Moliere or Shakespeare has been debated from the 19th century (more on this [here](https://fr.wikipedia.org/wiki/Paternit%C3%A9_des_%C5%93uvres_de_Moli%C3%A8re) and [here](https://fr.wikipedia.org/wiki/Paternit%C3%A9_des_%C5%93uvres_de_Shakespeare)).
+
+This task has also an instructive purpose.
+It is a way to investigate if NLP algorithms are able to capture bot only the semantics, but also the literary style of a document.
 
 #### Set up
 
