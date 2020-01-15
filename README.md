@@ -44,7 +44,7 @@ We therefore have a meaninful sample of three litterary movements, and an *outli
 
 
 
-#### Set up
+## Set up
 
 Open a terminal and
 
@@ -56,7 +56,7 @@ Open a terminal and
 2. Follow the ramp-kits instructions from the [wiki](https://github.com/paris-saclay-cds/ramp-workflow/wiki/Getting-started-with-a-ramp-kit)
 
 
-#### Local notebook
+## Local notebook
 
 Get started on this RAMP with the [dedicated notebook](Project_French_author_classification.ipynb).
 
