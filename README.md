@@ -13,6 +13,37 @@ For instance the authorship of Moliere or Shakespeare has been debated from the 
 This task has also an instructive purpose.
 It is a way to investigate if NLP algorithms are able to capture bot only the semantics, but also the literary style of a document.
 
+## Data
+
+The idea of this challenge is to see if an algorithm can identify some literary style for determining the author. In the general case, it can be very easy to differentiate documents on the genre e.g between novels, poems, and plays. The same is true for the period of writing, one can easily differentiate 17th century and 20th century style. Therefore, we decided to select authors from the same literary genre and the same period : a selection of French novelists from the 19th century. 
+
+The 19th century seems ideal for this classification task as its language is close enough to contemporary French (allowing therefore a simple use of pre-loaded dictionnaries, stopwords, etc...), studied in class and features coherent and indetifiable litterary movements (whereas the 20th century litterary landscape is much more scattered). Moreover, 19th century books are in the public domain.
+
+
+The following authors were selected in a attempt to be representative of the different styles of novels written in the 19th century:
+
+-  **Naturalism :**
+     - Zola
+     - Maupassant
+     - Daudet
+     
+-  **Literary realism:**
+     - Stendhal
+     - Balzac
+     - Flaubert
+     
+-  **Romanticism:**
+     - Hugo
+     - Dumas
+     - Vigny
+     
+-  **Early science-fiction/avant garde:**
+     - Verne
+
+We therefore have a meaninful sample of three litterary movements, and an *outlier*, Jules Verne. This can provide interesting follow-up analyses based on the results of this challenge.
+
+
+
 #### Set up
 
 Open a terminal and
