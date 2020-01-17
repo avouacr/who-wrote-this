@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import numpy as np
@@ -14,15 +13,12 @@ from rampwf.score_types.classifier_base import ClassifierBaseScoreType
 problem_title = "Who wrote this? Predicting the author of a paragraph"
 _target_column_name = "author"
 _prediction_label_names = list(range(0, 10))
-Predictions = rw.prediction_types.make_multiclass(
-    label_names=_prediction_label_names)
+Predictions = rw.prediction_types.make_multiclass(label_names=_prediction_label_names)
 
 
 # An object implementing the workflow
 class WhoWroteThis(FeatureExtractorClassifier):
-    def __init__(
-        self, workflow_element_names=["feature_extractor", "classifier",],
-    ):
+    def __init__(self, workflow_element_names=["feature_extractor", "classifier"]):
         super().__init__()
         self.element_names = workflow_element_names
 
@@ -41,12 +37,10 @@ class F1Score(ClassifierBaseScoreType):
         self.precision = precision
 
     def __call__(self, y_true, y_pred):
-        return f1_score(y_true, y_pred, average='micro')
+        return f1_score(y_true, y_pred, average="micro")
 
 
-score_types = [
-    F1Score(),
-]
+score_types = [F1Score()]
 
 
 def get_cv(X, y):
@@ -54,20 +48,22 @@ def get_cv(X, y):
     return cv.split(X, y)
 
 
-def _read_data(path, f_name, sep='|'):
+def _read_data(path, f_name, sep="|"):
     data = pd.read_csv(os.path.join(path, "data", f_name), sep=sep, low_memory=False)
-    y_array = OrdinalEncoder().fit_transform(data[_target_column_name].values[:,np.newaxis])
+    y_array = OrdinalEncoder().fit_transform(
+        data[_target_column_name].values[:, np.newaxis]
+    )
     X_df = data.drop(columns=[_target_column_name])
     return X_df, y_array.flatten()
 
 
-def get_train_data(sep='|', path="."):
+def get_train_data(sep="|", path="."):
     f_name = "who_wrote_this_corpus_train.csv"
     X_df, y_array = _read_data(path, f_name, sep=sep)
     return X_df, y_array
 
 
-def get_test_data(sep='|', path="."):
+def get_test_data(sep="|", path="."):
     f_name = "who_wrote_this_corpus_test.csv"
     X_df, y_array = _read_data(path, f_name, sep=sep)
     return X_df, y_array

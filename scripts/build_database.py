@@ -80,7 +80,7 @@ if __name__ == "__main__":
         book_refs_train,
         n_parag=None,
         min_length=100,
-        file_name="who_wrote_this_corpus_train.csv"
+        file_name="who_wrote_this_corpus_train.csv",
     )
 
     # Build test database
@@ -88,5 +88,5 @@ if __name__ == "__main__":
         book_refs_test,
         n_parag=None,
         min_length=100,
-        file_name="who_wrote_this_corpus_test.csv"
+        file_name="who_wrote_this_corpus_test.csv",
     )

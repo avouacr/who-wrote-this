@@ -33,7 +33,9 @@ def extract_proper_noun(txt):
     return re.findall(r"(?<!^|\. |\.  )[A-Z][a-z]+", txt)
 
 
-def tokenize_data(df, exclude_stopwords=True, exclude_proper_nouns=True, proper_noun_thresh=7):
+def tokenize_data(
+    df, exclude_stopwords=True, exclude_proper_nouns=True, proper_noun_thresh=7
+):
     # Prevent side effect
     df = df.copy()
 
@@ -53,11 +55,13 @@ def tokenize_data(df, exclude_stopwords=True, exclude_proper_nouns=True, proper_
         # appear more than proper_noun_thresh times.
         proper_nouns = df.paragraph.apply(extract_proper_noun).apply(pd.Series).stack()
         counted = Counter(proper_nouns)
-        filtered_proper_nouns = [el for el in proper_nouns if counted[el] >= proper_noun_thresh]
+        filtered_proper_nouns = [
+            el for el in proper_nouns if counted[el] >= proper_noun_thresh
+        ]
         filtered_proper_nouns = np.unique(filtered_proper_nouns)
         filtered_proper_nouns = [x.lower() for x in filtered_proper_nouns]
 
-    if (exclude_stopwords & exclude_proper_nouns):
+    if exclude_stopwords & exclude_proper_nouns:
         words_to_remove = set(french_stopwords).union(set(filtered_proper_nouns))
     elif exclude_stopwords:
         words_to_remove = french_stopwords
@@ -67,7 +71,7 @@ def tokenize_data(df, exclude_stopwords=True, exclude_proper_nouns=True, proper_
     # Tokenize paragraphs
     df["tokenized"] = df["paragraph"].str.lower().map(word_tokenize)
 
-    if (exclude_stopwords | exclude_proper_nouns):
+    if exclude_stopwords | exclude_proper_nouns:
         df["tokenized"] = df["tokenized"].map(make_stopwords_remover(words_to_remove))
 
     # Build vocabulary (with word count)
@@ -77,7 +81,9 @@ def tokenize_data(df, exclude_stopwords=True, exclude_proper_nouns=True, proper_
 
 
 def main(data_path, df_output_path, dictionary_output_path, exclude_stopwords):
-    df = pd.read_csv("/home/jaime/who-wrote-this/data/who_wrote_this_corpus_small.csv", sep="|")
+    df = pd.read_csv(
+        "/home/jaime/who-wrote-this/data/who_wrote_this_corpus_small.csv", sep="|"
+    )
     df, words_count = tokenize_data(df, exclude_stopwords=exclude_stopwords)
 
     with open(dictionary_output_path, "w") as f:

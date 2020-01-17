@@ -5,11 +5,11 @@ try:
 except ImportError:
     from urllib import urlretrieve
 
+REPO_REV_URL = "https://gist.githubusercontent.com/GuillaumeDesforges/e9c108915285a021093594ac932550f8/raw/31997e390f0808445ab79a726d1181c1643be7d7"
 
-DATA_URLS = {
-    "who_wrote_this_corpus_complete.csv": "https://drive.google.com/uc?export=download&id=1c6x1w2KC3PDpNOsUMq9V_ASMpCmJg3or",
-    "who_wrote_this_corpus_small.csv": "https://drive.google.com/uc?export=download&id=1pzF0xsIEeknAJjovi4iNXFcJKzlsxWFR",
-}
+FILE_NAMES = ["who_wrote_this_corpus_train.csv", "who_wrote_this_corpus_test.csv"]
+
+DATA_URLS = {file_name: f"{REPO_REV_URL}/{file_name}" for file_name in FILE_NAMES}
 
 
 def main(output_dir="data"):
