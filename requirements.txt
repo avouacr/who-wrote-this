@@ -7,3 +7,6 @@ plotly_express == 0.4.0
 matplotlib
 seaborn
 regex
+re
+gensim
+pyldavis
