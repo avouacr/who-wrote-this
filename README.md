@@ -10,7 +10,7 @@ Furthermore, [the multiple plagiarism scandals](https://lithub.com/12-literary-p
 For instance the authorship of Moliere or Shakespeare has been debated from the 19th century (more on this [here](https://fr.wikipedia.org/wiki/Paternit%C3%A9_des_%C5%93uvres_de_Moli%C3%A8re) and [here](https://fr.wikipedia.org/wiki/Paternit%C3%A9_des_%C5%93uvres_de_Shakespeare)).
 
 This task has also an instructive purpose.
-It is a way to investigate if NLP algorithms are able to capture bot only the semantics, but also the literary style of a document.
+It is a way to investigate if NLP algorithms are able to capture not only the semantics, but also the literary style of a document.
 
 ## Data
 
