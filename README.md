@@ -2,8 +2,7 @@
 
 *Authors : Romain Avouac, Jaime Costa Centena, Adrien Danel, Guillaume Desforges, José-Louis Imbert, Slimane Thabet*
 
-Authorship identification is the task of recognizing who the author of a document is.
-It is part of the Natural Language Processing (NLP) kind of tasks.
+This project is our contribution to the final challenge of the DATACAMP course (M2 Data Science). The goal was to develop a machine learning algorithm which can perform authorship identification, i.e. to automatically recognize the author of a given document based on its writing. 
 
 Being able to identify the author of a document presents several applications, such as detecting plagiarism or finding the author of an anonymous document.
 Archives all around the world are full of documents for which knowing the author would be invaluable knowledge for historical studies.
