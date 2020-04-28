@@ -1,5 +1,7 @@
 # A RAMP starting kit for French novelists identification
 
+![Mosaïque des auteurs](https://raw.githubusercontent.com/avouacr/who-wrote-this/master/author_mosaic.jpg "Mosaïque des auteurs")
+
 *Authors : Romain Avouac, Jaime Costa Centena, Adrien Danel, Guillaume Desforges, José-Louis Imbert, Slimane Thabet*
 
 This project is our contribution to the final challenge of the DATACAMP course (M2 Data Science). The goal was to develop a machine learning algorithm which can perform authorship identification, i.e. to automatically recognize the author of a given document based on its writing. 
